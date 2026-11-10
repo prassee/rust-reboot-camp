@@ -6,6 +6,9 @@ use level_01_fundementals::drill_3::{reverse, vec_reverse};
 use level_01_fundementals::drill_4::divide;
 use level_01_fundementals::drill_5::get_code_label;
 use level_01_fundementals::drill_6::{classify, describe, double_first};
+use level_01_fundementals::drill_7::{first_negative, next_power_of_two, parse_and_double};
+mod level_02_structs_enums;
+use level_02_structs_enums::drill_1::*;
 fn main() {
     println!("convert to to_fahrenheit {:?}", to_fahrenheit(100));
     println!("{:?}", largest(&[10, 23, 34]));
@@ -17,4 +20,13 @@ fn main() {
     println!("{:?}", classify(None));
     println!("{:?}", describe(None));
     println!("{:?}", double_first(&[]));
+    println!("{:?}", first_negative(&[[1, 1, 1], [2, 2, 2]]));
+    println!("{:?}", parse_and_double(" 23 "));
+    println!("{:?}", next_power_of_two(23));
+    let server_config = ServerConfig::new("localhost".to_string(), 3306);
+    let backup_server = server_config.with_port(3307);
+    println!("{:?}", server_config);
+    println!("{:?}", backup_server);
+    println!("{:?}", HealthCheck);
+    println!("{:?}", Meters(30.0));
 }

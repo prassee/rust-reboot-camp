@@ -7,9 +7,10 @@ pub fn describe(value: Option<i32>) -> String {
 }
 
 pub fn double_first(numbers: &[i32]) -> Option<i32> {
-    let Some(x) = numbers.first() else {
-        return None;
-    };
+    // let Some(x) = numbers.first() else {
+    //     return None;
+    // };
+    let x = numbers.first()?;
     Some(x * 2)
 }
 
