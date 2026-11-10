@@ -61,7 +61,11 @@ Session 1 is complete.
 | Drill | Status | Date | File |
 |---|---|---|---|
 | 2.1 Three kinds of struct | Done | 2026-11-10 | `src/level_02_structs_enums/drill_1.rs` |
-| 2.2 Methods with `self`, `&self` and `&mut self` | Next | | |
+| 2.2 Methods with `self`, `&self` and `&mut self` | Done | 2026-11-10 | `src/level_02_structs_enums/drill_2.rs` |
+| 2.3 Enums with data-carrying variants | Done | 2026-11-10 | `src/level_02_structs_enums/drill_3.rs` |
+| 2.4 Implementing `Display` | Done | 2026-11-10 | `src/level_02_structs_enums/drill_4.rs` |
+| 2.5 Destructuring nested structs and enums | Done | 2026-11-10 | `src/level_02_structs_enums/drill_5.rs` |
+| 2.6 Derive attributes: `Clone`, `Copy`, `Eq`, `Default` | Next | | |
 
 ### Mastery scores
 
@@ -74,12 +78,34 @@ Session 1 is complete.
 | Deriving `Debug` and `PartialEq` | 2 | Used in `assert_eq!` on whole structs |
 | Struct update syntax (`..base`) and partial moves | 1 | Prediction was 1/3 right; understood after running the experiment; `..*self` explained after a hint |
 | Why a field is copied or moved | 1 | Explained twice as "heap allocated" or "stack allocated" instead of `Copy` |
+| Choosing `self`, `&self` or `&mut self` (drill 2.2) | 2 | All six receivers predicted and written correctly; up from 1 in Exercise 1 |
+| Getter returning a reference (drill 2.2) | 2 | `owner()` returns `&str` without allocating; closes an Exercise 1 gap |
+| Fields are private by default (drill 2.2) | 1 | Thought `pub` on the struct made fields public |
+| `Result` from a method (drill 2.2) | 2 | `withdraw` returns `Result` unprompted and leaves the balance unchanged on error |
+| E0382 vs E0507 (drill 2.2) | 1 | Predicted E0507 for use after move; then explained the difference correctly |
+| Enum variants: unit, tuple and struct-like (drill 2.3) | 2 | All five variants defined correctly without hints |
+| Destructuring enums in `match` (drill 2.3) | 2 | Every variant destructured; `&String` binding predicted correctly |
+| `\|` patterns and `..` to ignore data (drill 2.3) | 1 | Combined arms unprompted, but needed two prompts to use `..` |
+| Characters vs bytes in UTF-8 (drill 2.3) | 1 | Used `.len()` again; fixed after a second hint |
+| Implementing `Display` with `write!` (drill 2.4) | 2 | Two corrections during the drill (`write_fmt`, then a local `String` instead of `f`); reconstruction from memory correct apart from writing `self` for `&self` |
+| Reusing another type's `Display` via `{}` (drill 2.4) | 2 | Removed `.to_string()` after the clippy warning |
+| Blanket impl behind `to_string` (drill 2.4) | 1 | Knew it depends on `Display`, not that it comes from a blanket `ToString` impl |
+| Nested destructuring with literals (drill 2.5) | 2 | `matches!` with nested `0` literals and `\|`, unprompted |
+| Destructuring in parameters (drill 2.5) | 2 | `mirror` destructures `Point` in the parameter list |
+| Match guards (drill 2.5) | 0 | Two hints; used `if`, then a `match` on a `bool`, instead of a guard |
+| Refutable vs irrefutable patterns (drill 2.5) | 1 | Explained after correction; E0005 not tried, and `mirror` was taken as the variant-pattern case |
 
 ### Gaps to revisit
 - Copy vs move depends on whether the type implements `Copy`, not on stack vs heap. Ask again in Session 3 (ownership).
 - `..base.clone()` clones every field, then throws away the ones you set yourself. Know the cost compared with cloning only the field you need.
 - Test assertions: used a weak `assert_ne!` where the exact value was known, and later expected `10` where the default is `100`. Check expected values against the requirement before running.
 - `test_server_config_from_base` still lacks an assertion on `derived.host`, and has a duplicated comment line.
+- Boundary values: `withdraw` first rejected the exact balance (`>=` instead of `>`), and the test expected the wrong result. Test the exact boundary from the requirement.
+- `deposit` can overflow `u64`; `checked_add` is the fix (identified, not implemented).
+- Match guards (`pattern if condition =>`): not used after two hints in drill 2.5. Rewrite `vertical_x` with a guard in follow-up.
+- E0005: put an enum-variant pattern in a function parameter and read the error. Not done yet.
+- Read compiler warnings as clues: in drill 2.4, "unused variable: `f`" showed the output was going nowhere.
+- Carry earlier lessons forward: in drill 2.3, `.len()` on text (drill 1.3) and a missing non-ASCII test came back. Before submitting, check the gap list for anything that applies.
 
 ## Before the current plan — Exercise 1: Job state model (closed early, code deleted)
 
