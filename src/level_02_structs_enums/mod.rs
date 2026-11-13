@@ -3,3 +3,4 @@ pub mod drill_2;
 pub mod drill_3;
 pub mod drill_4;
 pub mod drill_5;
+pub mod drill_6;

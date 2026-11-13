@@ -13,6 +13,9 @@ use level_02_structs_enums::drill_2::*;
 use level_02_structs_enums::drill_3::*;
 use level_02_structs_enums::drill_4::{Point, Shape};
 use level_02_structs_enums::drill_5;
+use level_02_structs_enums::drill_6;
+mod level_03_ownership;
+use level_03_ownership::drill_1;
 
 fn main() {
     println!("convert to to_fahrenheit {:?}", to_fahrenheit(100));
@@ -52,7 +55,7 @@ fn main() {
     a1.deposit(50);
     let closing_bal = a1.close();
     println!("{:?}", closing_bal);
-    // a1.balance(); calling on a closed thorws compiler errors
+    // a1.balance(); calling on a closed throws compiler errors
 
     let event = Event::Close;
     println!("{:?}", event);
@@ -90,4 +93,34 @@ fn main() {
     drill_5::starts_at_origin(&shape1);
     drill_5::vertical_x(&line);
     drill_5::mirror(drill_5::Point::new(0, 3));
+
+    let d6_tempr = drill_6::Celsius(23.3);
+    println!(
+        "{:?} , {:?}",
+        d6_tempr,
+        d6_tempr == drill_6::Celsius(23.3000)
+    );
+
+    let d6_usid = drill_6::UserId(23);
+    println!("{:?} {:?}", d6_usid.0, d6_usid == drill_6::UserId(23));
+    println!("{:?}", d6_usid);
+
+    let drill6_settings = drill_6::Settings {
+        theme: "ping".to_string(),
+        font_size: 2,
+        autosave: false,
+    };
+    let drill6_new_settings = drill_6::Settings {
+        autosave: true,
+        ..drill6_settings
+    };
+    println!("{:?}", drill6_new_settings);
+    // println!("{:?}", drill6_settings.theme);
+    // println!("{:?}", drill6_settings);
+
+    drill_1::borrow_str("s");
+    drill_1::take_string("s".to_string());
+    drill_1::take_number(23);
+    drill_1::take_tuple((23,"abcd".to_string()));
+    drill_1::take_and_return("s".to_string());
 }

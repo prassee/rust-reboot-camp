@@ -28,10 +28,7 @@ pub fn starts_at_origin(shape: &Shape) -> bool {
 
 pub fn vertical_x(shape: &Shape) -> Option<i32> {
     match shape {
-        Shape::Line(Point { x: x1, .. }, Point { x: x2, .. }) => match x1 == x2 {
-            true => Some(*x1),
-            false => None,
-        },
+        Shape::Line(Point { x: x1, .. }, Point { x: x2, .. }) if (x1 == x2) => Some(*x1),
         _ => None,
     }
 }

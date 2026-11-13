@@ -65,7 +65,9 @@ Session 1 is complete.
 | 2.3 Enums with data-carrying variants | Done | 2026-11-10 | `src/level_02_structs_enums/drill_3.rs` |
 | 2.4 Implementing `Display` | Done | 2026-11-10 | `src/level_02_structs_enums/drill_4.rs` |
 | 2.5 Destructuring nested structs and enums | Done | 2026-11-10 | `src/level_02_structs_enums/drill_5.rs` |
-| 2.6 Derive attributes: `Clone`, `Copy`, `Eq`, `Default` | Next | | |
+| 2.6 Derive attributes: `Clone`, `Copy`, `Eq`, `Default` | Done | 2026-11-11 | `src/level_02_structs_enums/drill_6.rs` |
+
+Session 2 is complete.
 
 ### Mastery scores
 
@@ -92,7 +94,11 @@ Session 1 is complete.
 | Blanket impl behind `to_string` (drill 2.4) | 1 | Knew it depends on `Display`, not that it comes from a blanket `ToString` impl |
 | Nested destructuring with literals (drill 2.5) | 2 | `matches!` with nested `0` literals and `\|`, unprompted |
 | Destructuring in parameters (drill 2.5) | 2 | `mirror` destructures `Point` in the parameter list |
-| Match guards (drill 2.5) | 0 | Two hints; used `if`, then a `match` on a `bool`, instead of a guard |
+| Match guards (drill 2.5) | 1 | First time seen; after two hints, rewrote `vertical_x` with a guard |
+| `Eq` vs `PartialEq`, and floats (drill 2.6) | 2 | Predicted that `Celsius` can't be `Eq`; reason (`NaN`) added in review |
+| `Default` values for fields (drill 2.6) | 2 | Predicted all three defaults correctly |
+| `Copy` requires every field to be `Copy` (drill 2.6) | 2 | Ruled out `Copy` for `Settings` because of `String`, using `Copy` as the reason |
+| Choosing derives from field types (drill 2.6) | 1 | Needed the trait table for primitives; now knows to check "Trait Implementations" in the docs |
 | Refutable vs irrefutable patterns (drill 2.5) | 1 | Explained after correction; E0005 not tried, and `mirror` was taken as the variant-pattern case |
 
 ### Gaps to revisit
@@ -102,10 +108,30 @@ Session 1 is complete.
 - `test_server_config_from_base` still lacks an assertion on `derived.host`, and has a duplicated comment line.
 - Boundary values: `withdraw` first rejected the exact balance (`>=` instead of `>`), and the test expected the wrong result. Test the exact boundary from the requirement.
 - `deposit` can overflow `u64`; `checked_add` is the fix (identified, not implemented).
-- Match guards (`pattern if condition =>`): not used after two hints in drill 2.5. Rewrite `vertical_x` with a guard in follow-up.
+- Match guards (`pattern if condition =>`): written after hints in drill 2.5. Use one in a later drill without hints to reach 2.
 - E0005: put an enum-variant pattern in a function parameter and read the error. Not done yet.
 - Read compiler warnings as clues: in drill 2.4, "unused variable: `f`" showed the output was going nowhere.
 - Carry earlier lessons forward: in drill 2.3, `.len()` on text (drill 1.3) and a missing non-ASCII test came back. Before submitting, check the gap list for anything that applies.
+
+## Day 1 — Session 3: Ownership and memory model
+
+| Challenge | Status | Date | File |
+|---|---|---|---|
+| 3.1 Is it still usable? (prediction) | Done | 2026-11-13 | `src/level_03_ownership/drill_1.rs` |
+| 3.2 Fix move errors | Next | | |
+
+### Mastery scores
+
+| Topic | Score | Evidence |
+|---|---|---|
+| Predicting usability after a call | 2 | 7 of 8 cases predicted correctly, with reasons |
+| Move vs `Copy` vs `.clone()` | 2 | Cases A–E all correct |
+| Partial move vs whole move | 2 | Got the subtle pair: `t.0` usable after a partial move, `x.0` not after a whole move |
+| Borrows end at last use (E0505) | 1 | Needed both orderings run before the rule was clear; first wrote `let _ = &s`, which creates no binding |
+
+### Gaps to revisit
+- The compiler blames the **move**, not the later use: E0505 points at the move line and notes "borrow later used here".
+- Stack vs heap again: a `(i32, String)` tuple lives on the stack, and only the `String`'s buffer is on the heap.
 
 ## Before the current plan — Exercise 1: Job state model (closed early, code deleted)
 
