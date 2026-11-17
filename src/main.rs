@@ -16,7 +16,6 @@ use level_02_structs_enums::drill_5;
 use level_02_structs_enums::drill_6;
 mod level_03_ownership;
 use level_03_ownership::{drill_1, drill_3, drill_4};
-
 fn main() {
     println!("convert to to_fahrenheit {:?}", to_fahrenheit(100));
     println!("{:?}", largest(&[10, 23, 34]));
@@ -130,4 +129,33 @@ fn main() {
 
     drill_4::first_word("s");
     drill_4::middle(&[1, 2, 3, 4]);
+
+    println!("{}", rust_curious::basic_syntax::factorial(10));
+    println!("{}", rust_curious::basic_syntax::factorial_loop(10));
+}
+
+mod rust_curious {
+    pub mod basic_syntax {
+        pub fn factorial(n: u64) -> u64 {
+            if n == 0 || n == 1 {
+                1
+            } else {
+                n * factorial(n - 1)
+            }
+        }
+
+        pub fn factorial_loop(n: u64) -> u64 {
+            let mut fact = 1;
+            let mut x = 1;
+            loop {
+                fact *= x;
+                if x == n {
+                    break;
+                } else {
+                    x += 1;
+                }
+            }
+            fact
+        }
+    }
 }
