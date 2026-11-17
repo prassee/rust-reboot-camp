@@ -8,9 +8,14 @@ pub fn middle(v: &[i32]) -> &[i32] {
 
 #[cfg(test)]
 mod tests {
+    use super::*;
     #[test]
-    fn test_first_word() {}
+    fn test_first_word() {
+        first_word("av");
+    }
 
     #[test]
-    fn test_middle() {}
+    fn test_middle() {
+        middle(&[1, 2, 3]);
+    }
 }
