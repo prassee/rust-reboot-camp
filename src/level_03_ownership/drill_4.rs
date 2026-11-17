@@ -1,5 +1,5 @@
 pub fn first_word(s: &str) -> &str {
-    ""
+    s
 }
 
 pub fn middle(v: &[i32]) -> &[i32] {
