@@ -118,7 +118,9 @@ Session 2 is complete.
 | Challenge | Status | Date | File |
 |---|---|---|---|
 | 3.1 Is it still usable? (prediction) | Done | 2026-11-13 | `src/level_03_ownership/drill_1.rs` |
-| 3.2 Fix move errors | Next | | |
+| 3.2 Fix move errors (also covers "rewrite functions to borrow") | Done | 2026-11-15 | `src/level_03_ownership/drill_2.rs` |
+| 3.3 Modify a vector through a mutable reference | Done | 2026-11-17 | `src/level_03_ownership/drill_3.rs` |
+| 3.4 Return a slice from a function | Next | | |
 
 ### Mastery scores
 
@@ -128,10 +130,21 @@ Session 2 is complete.
 | Move vs `Copy` vs `.clone()` | 2 | Cases A–E all correct |
 | Partial move vs whole move | 2 | Got the subtle pair: `t.0` usable after a partial move, `x.0` not after a whole move |
 | Borrows end at last use (E0505) | 1 | Needed both orderings run before the rule was clear; first wrote `let _ = &s`, which creates no binding |
+| Choosing the cheapest fix for a move (3.2) | 1 | First fixed all three with `.clone()`; switched to borrowing after a review |
+| Borrowed parameters `&str` and `&[T]` (3.2) | 2 | All four snippets end with a borrowing fix; `&[i32]` after clippy's `ptr_arg` |
+| `&` vs `&mut` (3.2) | 1 | First used `&mut str` for a function that only reads |
+| Restructuring to avoid a move (3.2) | 2 | Reordered lines unprompted in snippets 2 and 3 |
+| `&mut [T]` vs `&mut Vec<T>` (3.3) | 2 | Predicted and chose the smallest type for all three functions, with the right reason |
+| Caller side of `&mut`: `let mut` plus `&mut` (3.3) | 2 | Predicted only `&mut`, but wrote both correctly |
+| Dereferencing with `*` through `&mut` (3.3) | 1 | Prediction mixed up deref with multiplication; used index loops, so not yet written |
+| Borrow held by a loop over a collection (E0502) (3.3) | 2 | After a hint on index loops, triggered E0502 and explained it correctly |
 
 ### Gaps to revisit
 - The compiler blames the **move**, not the later use: E0505 points at the move line and notes "borrow later used here".
 - Stack vs heap again: a `(i32, String)` tuple lives on the stack, and only the `String`'s buffer is on the heap.
+- Reach for borrowing before `.clone()` when a function only reads its argument.
+- `format!` and `println!` always borrow their arguments; they never move.
+- Write `*x` through an `iter_mut()` loop at least once (skipped in 3.3).
 
 ## Before the current plan — Exercise 1: Job state model (closed early, code deleted)
 

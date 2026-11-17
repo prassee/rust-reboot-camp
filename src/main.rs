@@ -15,7 +15,7 @@ use level_02_structs_enums::drill_4::{Point, Shape};
 use level_02_structs_enums::drill_5;
 use level_02_structs_enums::drill_6;
 mod level_03_ownership;
-use level_03_ownership::drill_1;
+use level_03_ownership::{drill_1, drill_3};
 
 fn main() {
     println!("convert to to_fahrenheit {:?}", to_fahrenheit(100));
@@ -121,6 +121,10 @@ fn main() {
     drill_1::borrow_str("s");
     drill_1::take_string("s".to_string());
     drill_1::take_number(23);
-    drill_1::take_tuple((23,"abcd".to_string()));
+    drill_1::take_tuple((23, "abcd".to_string()));
     drill_1::take_and_return("s".to_string());
+
+    drill_3::double_all(&mut [1, 2, 3]);
+    drill_3::zero_first(&mut [1, 2, 3]);
+    drill_3::append_total(&mut vec![1, 2, 3]);
 }

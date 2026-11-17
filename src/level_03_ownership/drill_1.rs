@@ -37,11 +37,11 @@ mod tests {
         // partially  move values from tuple
         take_string(t.1);
         println!("{}", t.0);
-        // errors out borrow of patially moved value t - error[E0382]: borrow of partially moved value: `t`
+        // errors out borrow of partially moved value t - error[E0382]: borrow of partially moved value: `t`
         // println!("{:?}", t);
 
         let s = "abcd".to_string();
-        // r jsut hold the reference & lives as long as s , once moved using r should throw compiler error
+        // r just hold the reference & lives as long as s , once moved using r should throw compiler error
         let r = &s; // using _ instead of a variable name
         // r is usable since s still a valid ref and not yet moved in to take_string()
         // this is moved next to take_string, its a compiler error as seen before.
