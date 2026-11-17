@@ -18,7 +18,8 @@ pub fn append_total(num: &mut Vec<i32>) {
     let mut sum = 0;
     for i in num.iter() {
         sum += i;
-        // using this inside the loop runs in to E0502 - i.e num borrowed as imm inside loop and push needs a mutable ref.
+        // using this inside the loop runs in to E0502 -
+        // i.e num borrowed as imm inside loop and push needs a mutable ref.
         // num.push(sum);
     }
     num.push(sum);

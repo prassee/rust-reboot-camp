@@ -120,7 +120,8 @@ Session 2 is complete.
 | 3.1 Is it still usable? (prediction) | Done | 2026-11-13 | `src/level_03_ownership/drill_1.rs` |
 | 3.2 Fix move errors (also covers "rewrite functions to borrow") | Done | 2026-11-15 | `src/level_03_ownership/drill_2.rs` |
 | 3.3 Modify a vector through a mutable reference | Done | 2026-11-17 | `src/level_03_ownership/drill_3.rs` |
-| 3.4 Return a slice from a function | Next | | |
+| 3.4 Return a slice from a function | Done | 2026-11-17 | `src/level_03_ownership/drill_4.rs` |
+| 3.5 Invalid combinations of mutable and shared borrows | Next | | |
 
 ### Mastery scores
 
@@ -138,6 +139,11 @@ Session 2 is complete.
 | Caller side of `&mut`: `let mut` plus `&mut` (3.3) | 2 | Predicted only `&mut`, but wrote both correctly |
 | Dereferencing with `*` through `&mut` (3.3) | 1 | Prediction mixed up deref with multiplication; used index loops, so not yet written |
 | Borrow held by a loop over a collection (E0502) (3.3) | 2 | After a hint on index loops, triggered E0502 and explained it correctly |
+| Returning a slice borrowed from a parameter (3.4) | 2 | `first_word` and `middle` correct; extra edge cases tested unprompted |
+| Returning a reference to a local (E0515) (3.4) | 2 | Predicted and fixed by returning `String` |
+| No input to borrow from (E0106) and `&'static str` (3.4) | 2 | Predicted with the right reason; wrote both fixes |
+| A returned slice keeps its source borrowed (3.4) | 1 | Needed the setup explained; got E0502, but the comment says `clear()` drops `s` |
+| Slice ranges and `usize` underflow (3.4) | 1 | Guard correct, but couldn't say which lengths panic and why |
 
 ### Gaps to revisit
 - The compiler blames the **move**, not the later use: E0505 points at the move line and notes "borrow later used here".
@@ -145,6 +151,7 @@ Session 2 is complete.
 - Reach for borrowing before `.clone()` when a function only reads its argument.
 - `format!` and `println!` always borrow their arguments; they never move.
 - Write `*x` through an `iter_mut()` loop at least once (skipped in 3.3).
+- `clear()` empties a value through `&mut`; it doesn't drop it. "Does not live long enough" is a different error (E0597, Session 4).
 
 ## Before the current plan — Exercise 1: Job state model (closed early, code deleted)
 
