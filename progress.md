@@ -121,7 +121,8 @@ Session 2 is complete.
 | 3.2 Fix move errors (also covers "rewrite functions to borrow") | Done | 2026-11-15 | `src/level_03_ownership/drill_2.rs` |
 | 3.3 Modify a vector through a mutable reference | Done | 2026-11-17 | `src/level_03_ownership/drill_3.rs` |
 | 3.4 Return a slice from a function | Done | 2026-11-17 | `src/level_03_ownership/drill_4.rs` |
-| 3.5 Invalid combinations of mutable and shared borrows | Next | | |
+| 3.5 Invalid combinations of mutable and shared borrows | Done | 2026-11-18 | `src/level_03_ownership/drill_5.rs` |
+| 3.6 When a value is copied, moved or cloned | Next | | |
 
 ### Mastery scores
 
@@ -144,6 +145,10 @@ Session 2 is complete.
 | No input to borrow from (E0106) and `&'static str` (3.4) | 2 | Predicted with the right reason; wrote both fixes |
 | A returned slice keeps its source borrowed (3.4) | 1 | Needed the setup explained; got E0502, but the comment says `clear()` drops `s` |
 | Slice ranges and `usize` underflow (3.4) | 1 | Guard correct, but couldn't say which lengths panic and why |
+| Predicting borrow conflicts: E0499, E0502, E0506 (3.5) | 2 | All 8 cases predicted correctly, including E0506 on first sight |
+| Fixing a conflict by reordering (3.5) | 2 | Gave the reorder fix for E and G unprompted; up from 1 in 3.1 |
+| Two-phase borrows (3.5) | 1 | Predicted that `v.push(v.len())` compiles, but said there was no shared borrow |
+| Why a `Vec` can't grow while an element is borrowed (3.5) | 1 | Linked it to 3.3, but didn't state the reallocation risk |
 
 ### Gaps to revisit
 - The compiler blames the **move**, not the later use: E0505 points at the move line and notes "borrow later used here".
