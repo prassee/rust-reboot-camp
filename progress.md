@@ -122,7 +122,8 @@ Session 2 is complete.
 | 3.3 Modify a vector through a mutable reference | Done | 2026-11-17 | `src/level_03_ownership/drill_3.rs` |
 | 3.4 Return a slice from a function | Done | 2026-11-17 | `src/level_03_ownership/drill_4.rs` |
 | 3.5 Invalid combinations of mutable and shared borrows | Done | 2026-11-18 | `src/level_03_ownership/drill_5.rs` |
-| 3.6 When a value is copied, moved or cloned | Next | | |
+| 3.6 When a value is copied, moved or cloned | Done | 2026-11-19 | `src/level_03_ownership/drill_6.rs` |
+| 3.7 Where ownership is transferred and when a value is dropped | Next | | |
 
 ### Mastery scores
 
@@ -149,6 +150,9 @@ Session 2 is complete.
 | Fixing a conflict by reordering (3.5) | 2 | Gave the reorder fix for E and G unprompted; up from 1 in 3.1 |
 | Two-phase borrows (3.5) | 1 | Predicted that `v.push(v.len())` compiles, but said there was no shared borrow |
 | Why a `Vec` can't grow while an element is borrowed (3.5) | 1 | Linked it to 3.3, but didn't state the reallocation risk |
+| Which types are `Copy`: primitives, arrays, tuples, `Option` (3.6) | 2 | A–H predicted correctly with trait-based reasons; spotted E0277 masking the move in F |
+| `&T` is copied, `&mut T` is moved (3.6) | 1 | Predicted J as a copy; the test proved the move, and the summary now says `&mut` never copies |
+| Explaining copy vs move (3.6) | 1 | Correctly says the `Copy` trait decides; but says structs are `Copy` when their fields are, and that moving "never compiles" |
 
 ### Gaps to revisit
 - The compiler blames the **move**, not the later use: E0505 points at the move line and notes "borrow later used here".
@@ -157,6 +161,8 @@ Session 2 is complete.
 - `format!` and `println!` always borrow their arguments; they never move.
 - Write `*x` through an `iter_mut()` loop at least once (skipped in 3.3).
 - `clear()` empties a value through `&mut`; it doesn't drop it. "Does not live long enough" is a different error (E0597, Session 4).
+- Your own structs and enums are never `Copy` without `#[derive(Clone, Copy)]`, even if every field is `Copy` (case F). The "`Copy` if everything inside is" rule applies only to tuples, arrays and `Option`.
+- A move always compiles; only *using* the source afterwards fails (E0382). A move and a copy both duplicate the bytes; `Copy` only decides whether the source stays usable.
 
 ## Before the current plan — Exercise 1: Job state model (closed early, code deleted)
 
